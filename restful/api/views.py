@@ -12,8 +12,9 @@ from employees.models import Employee
 from django.http import Http404
 from rest_framework import viewsets
 from rest_framework.viewsets import ViewSet
-
-
+from rest_framework import generics
+from blog.models import Blog,Comment
+from blog.serializers import  CommentSerializer,BlogSerializer
 @api_view(['GET','POST'])
 def student_view(request):
     if request.method == 'GET':
@@ -184,3 +185,26 @@ class EmployeeViewset(viewsets.ModelViewSet):
         queryset = Employee.objects.all()
         serializer_class = EmployeeSerializer 
         "this specific code handle everything crud and primary and non-primary key opertion"
+
+
+
+
+class BlogView(generics.ListCreateAPIView):
+     queryset= Blog.objects.all()
+     serializer_class = BlogSerializer
+
+
+class CommentView(generics.ListCreateAPIView):
+     queryset= Comment.objects.all()
+     serializer_class = CommentSerializer
+
+
+class CommentDetailView(generics.ListCreateAPIView):
+     queryset = Blog.objects.all()
+     serializer_class = BlogSerializer
+     lookup_field = 'pk'
+
+class BlogDetailView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'
