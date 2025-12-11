@@ -15,6 +15,15 @@ from rest_framework.viewsets import ViewSet
 from rest_framework import generics
 from blog.models import Blog,Comment
 from blog.serializers import  CommentSerializer,BlogSerializer
+from api.pagination import CustomPagination
+
+
+
+
+
+
+
+
 @api_view(['GET','POST'])
 def student_view(request):
     if request.method == 'GET':
@@ -185,7 +194,7 @@ class EmployeeViewset(viewsets.ModelViewSet):
         queryset = Employee.objects.all()
         serializer_class = EmployeeSerializer 
         "this specific code handle everything crud and primary and non-primary key opertion"
-
+        pagination_class = CustomPagination
 
 
 
