@@ -16,9 +16,10 @@ from rest_framework import generics
 from blog.models import Blog,Comment
 from blog.serializers import  CommentSerializer,BlogSerializer
 from api.pagination import CustomPagination
-
-
-
+from django_filters.rest_framework import DjangoFilterBackend
+from employees.filters import  EmployeeFilter
+from rest_framework.filters import SearchFilter,OrderingFilter
+ 
 
 
 
@@ -195,12 +196,20 @@ class EmployeeViewset(viewsets.ModelViewSet):
         serializer_class = EmployeeSerializer 
         "this specific code handle everything crud and primary and non-primary key opertion"
         pagination_class = CustomPagination
+        filter_backends = [DjangoFilterBackend]
+        filterset_class =  EmployeeFilter
+
 
 
 
 class BlogView(generics.ListCreateAPIView):
      queryset= Blog.objects.all()
      serializer_class = BlogSerializer
+     filter_backends =[SearchFilter,OrderingFilter]
+     search_fields = ['blog_title']
+     ordering_fields = ['id']
+
+
 
 
 class CommentView(generics.ListCreateAPIView):

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'student',
     'employees',
-    'blog'
+    'blog',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -128,5 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #for viewset and generics only it works
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':1
+    'PAGE_SIZE':1,
+    'DEFAULT_FILTER_BACKEND': ['DJANGO_FILTERS.REST_FRAMEWORK.DjangoFilterBackend']
 }
